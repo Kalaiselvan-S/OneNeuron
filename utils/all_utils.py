@@ -4,9 +4,18 @@ import matplotlib.pyplot as plt
 import joblib
 from matplotlib.colors import ListedColormap
 import os
+import logging
+
 plt.style.use("fivethirtyeight") # THIS IS STYLE OF GRAPHS
 
 def prepare_data(df):
+
+  """It is used to seperate the independent and dependent features
+
+  Returns:
+      tuple: it will returns tuples of  independent and dependent features
+  """
+  logging.info("Preparing the input data by segregating the independent and dependent features")
   X = df.drop("y", axis=1)
 
   y = df["y"]
@@ -39,8 +48,8 @@ def save_plot(df, file_name, model):
 
     xx1, xx2 = np.meshgrid(np.arange(x1_min, x1_max, resolution), 
                           np.arange(x2_min, x2_max, resolution))
-    print(xx1)
-    print(xx1.ravel())
+    # print(xx1)
+    # print(xx1.ravel())
     Z = classfier.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
     Z = Z.reshape(xx1.shape)
     plt.contourf(xx1, xx2, Z, alpha=0.2, cmap=cmap)
